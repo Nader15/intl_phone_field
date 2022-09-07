@@ -1,6 +1,8 @@
-const List<Country> countries = [
+// see: https://en.wikipedia.org/wiki/List_of_country_calling_codes
+// for list of country/calling codes
 
-  Country(
+const List<Country> countries = [
+    Country(
     name: "Saudi Arabia",
     flag: "🇸🇦",
     code: "SA",
@@ -16,7 +18,6 @@ const List<Country> countries = [
     minLength: 10,
     maxLength: 10,
   ),
-
 ];
 
 class Country {
@@ -24,6 +25,7 @@ class Country {
   final String flag;
   final String code;
   final String dialCode;
+  final String regionCode;
   final int minLength;
   final int maxLength;
 
@@ -34,5 +36,17 @@ class Country {
     required this.dialCode,
     required this.minLength,
     required this.maxLength,
+    this.regionCode = "",
   });
+
+  String get fullCountryCode {
+    return this.dialCode + this.regionCode;
+  }
+
+  String get displayCC {
+    if (this.regionCode != "") {
+      return "${this.dialCode} ${this.regionCode}";
+    }
+    return this.dialCode;
+  }
 }
