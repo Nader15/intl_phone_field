@@ -98,16 +98,29 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                       labelText: widget.searchText,
                     ),
                 onChanged: (value) {
-                  _filteredCountries = isNumeric(value)
-                      ? widget.countryList
-                          .where((country) => country.dialCode.contains(value))
-                          .toList()
-                      : widget.countryList
-                          .where((country) => country.name
-                              .toLowerCase()
-                              .contains(value.toLowerCase()))
-                          .toList();
-                  if (this.mounted) setState(() {});
+                  if(Localizations.localeOf(context).languageCode=="ar"){
+                    _filteredCountries = isNumeric(value)
+                        ? widget.countryList
+                        .where((country) => country.dialCode.contains(value))
+                        .toList()
+                        : widget.countryList
+                        .where((country) => country.namear
+                        .toLowerCase()
+                        .contains(value.toLowerCase()))
+                        .toList();
+                    if (this.mounted) setState(() {});
+                  }else{
+                    _filteredCountries = isNumeric(value)
+                        ? widget.countryList
+                        .where((country) => country.dialCode.contains(value))
+                        .toList()
+                        : widget.countryList
+                        .where((country) => country.name
+                        .toLowerCase()
+                        .contains(value.toLowerCase()))
+                        .toList();
+                    if (this.mounted) setState(() {});
+                  }
                 },
               ),
             ),
@@ -126,7 +139,7 @@ class _CountryPickerDialogState extends State<CountryPickerDialog> {
                       ),
                       contentPadding: widget.style?.listTilePadding,
                       title: Text(
-                        _filteredCountries[index].name,
+                        Localizations.localeOf(context).languageCode=="ar"?  _filteredCountries[index].namear:_filteredCountries[index].name,
                         style: widget.style?.countryNameStyle ??
                             TextStyle(fontWeight: FontWeight.w700),
                       ),
